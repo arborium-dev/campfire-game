@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3179360247014537770}
   m_Layer: 0
   m_Name: NoteSprite
-  m_TagString: Untagged
+  m_TagString: Note
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -108,6 +108,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Note
   speed: 5
   spawnTime: 0
+  damageAmount: 1
 --- !u!61 &7560758792678325214
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -12,10 +12,10 @@ public class NoteSpawner : MonoBehaviour
     void Start()
     {
         SpawnNotes(loader.beatmap.buttonOne, 0);
-        //SpawnNotes(loader.beatmap.buttonTwo, 1);
-        //SpawnNotes(loader.beatmap.buttonThree, 2);
-        //SpawnNotes(loader.beatmap.buttonFour, 3);
-        //SpawnNotes(loader.beatmap.buttonFive, 4);
+        SpawnNotes(loader.beatmap.buttonTwo, 1);
+        SpawnNotes(loader.beatmap.buttonThree, 2);
+        SpawnNotes(loader.beatmap.buttonFour, 3);
+        SpawnNotes(loader.beatmap.buttonFive, 4);
     }
 
     void SpawnNotes(float[] timestamps, int laneIndex)
