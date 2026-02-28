@@ -4,9 +4,10 @@ public class NoteSpawner : MonoBehaviour
 {
     public BeatmapLoader loader;
     public GameObject notePrefab;
-
-    public float[] laneX = new float[5] { -4f, -2f, 0f, 2f, 4f };
-    public float spawnY = 2f;
+    public float noteDistance;
+        
+    public float[] laneY = new float[5] { -2f, -1f, 0f, 1f, 2f };
+    public float spawnX = 7f;
 
     void Start()
     {
@@ -21,10 +22,12 @@ public class NoteSpawner : MonoBehaviour
     {
         foreach (float t in timestamps)
         {
-            Vector3 pos = new Vector3(laneX[laneIndex], spawnY, 0f);
-            GameObject note = Instantiate(notePrefab, pos, Quaternion.identity);
+            float x = spawnX + (t * noteDistance);  // <-- use t here
+            Vector3 pos = new Vector3(x, laneY[laneIndex], 0f);
 
+            GameObject note = Instantiate(notePrefab, pos, Quaternion.identity);
             note.GetComponent<Note>().spawnTime = t;
         }
     }
+
 }
