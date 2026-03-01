@@ -1079,7 +1079,7 @@ MonoBehaviour:
   notePrefab: {fileID: 2640897253025761088, guid: cd3258077bb16c241be78c77d26c9c40, type: 3}
   noteDistance: 5
   audioSource: {fileID: 220655874}
-  audioOffset: 1.825
+  audioOffset: 0.4
   songSelection: {fileID: 11400000, guid: cb1b6a0cef6be5149bb0d8474017cc9e, type: 2}
   laneY:
   - -2
