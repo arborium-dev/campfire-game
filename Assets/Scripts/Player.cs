@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
+
 
 public class Player : MonoBehaviour
 {
@@ -15,11 +17,13 @@ public class Player : MonoBehaviour
     // private AudioSource _audioSource;
     // private AudioClip _attackSfx;
     // private AudioClip _parrySfx;
-
+    [SerializeField] private SongSelection songSelection;
+    
     private InputAction _moveUpAction;
     private InputAction _moveDownAction;
     private InputAction _attackAction;
     private InputAction _parryAction;
+    private InputAction _hiddenAction;
     private float _laneIndex = 2; // start in the middle lane
     private int _health = 15; // Starting health
     private List<Note> _overlappingNotes = new List<Note>(); // Track notes in player's lane
@@ -34,6 +38,7 @@ public class Player : MonoBehaviour
         _moveDownAction = InputSystem.actions.FindAction("MoveDown");
         _attackAction = InputSystem.actions.FindAction("Attack");
         _parryAction = InputSystem.actions.FindAction("Parry");
+        _hiddenAction = InputSystem.actions.FindAction("HiddenLevel");
         _animator = GetComponent<Animator>();
         
         // Initialize AudioSource
@@ -83,7 +88,12 @@ public class Player : MonoBehaviour
     {
         // Update player position based on lane index
         transform.position = new Vector2(-3, laneY[(int)_laneIndex]);
-        
+
+        if (_hiddenAction.IsPressed())
+        {
+            songSelection.selectedSong = 7; // Set to hidden level index
+            SceneManager.LoadScene("Gameplay");
+        }
     
         if (_moveUpAction.IsPressed() && _laneIndex < 4 && _dead == false)
         {

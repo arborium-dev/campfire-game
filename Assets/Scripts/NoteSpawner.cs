@@ -9,7 +9,7 @@ public class NoteSpawner : MonoBehaviour
     public float audioOffset; // Adjust this to sync notes with music (in seconds)
     
     [SerializeField] private SongSelection songSelection;
-    private string[] _songFiles = { "Music/Insomnia", "Music/Stillness", "Music/Drift", "Music/Adrenaline", "Music/Tachysensia", "Music/Nostalgia", "Music/Euphoria" };
+    private string[] _songFiles = { "Music/Insomnia", "Music/Stillness", "Music/Drift", "Music/Adrenaline", "Music/Tachysensia", "Music/Nostalgia", "Music/Euphoria", "Music/Unbeatable" };
     
     public float[] laneY = { -2.5f, -1.5f, -0.5f, 0.5f, 1.5f };
     public float spawnX = 7f;
