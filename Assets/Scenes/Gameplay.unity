@@ -803,6 +803,7 @@ MonoBehaviour:
   noteDistance: 5
   audioSource: {fileID: 220655874}
   audioOffset: 1.825
+  songSelection: {fileID: 11400000, guid: cb1b6a0cef6be5149bb0d8474017cc9e, type: 2}
   laneY:
   - -2
   - -1

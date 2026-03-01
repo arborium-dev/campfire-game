@@ -6,17 +6,32 @@ public class NoteSpawner : MonoBehaviour
     public GameObject notePrefab;
     public float noteDistance;
     public AudioSource audioSource; // Assign in Inspector
-    public float audioOffset = 0f; // Adjust this to sync notes with music (in seconds)
-        
-    public float[] laneY = new float[5] { -2.5f, -1.5f, -0.5f, 0.5f, 1.5f };
+    public float audioOffset; // Adjust this to sync notes with music (in seconds)
+    
+    [SerializeField] private SongSelection songSelection;
+    private string[] _songFiles = { "Music/Insomnia", "Music/Stillness", "Music/Drift", "Music/Adrenaline", "Music/Tachysensia", "Music/Nostalgia", "Music/Euphoria" };
+    
+    public float[] laneY = { -2.5f, -1.5f, -0.5f, 0.5f, 1.5f };
     public float spawnX = 7f;
 
     void Start()
     {
-        // Play audio and spawn notes
+        
+        
+        // Load the correct audio clip based on selected song
         if (audioSource != null)
         {
-            audioSource.PlayDelayed(audioOffset);
+            AudioClip clip = Resources.Load<AudioClip>(_songFiles[songSelection.selectedSong]);
+            if (clip != null)
+            {
+                audioSource.clip = clip;
+                audioSource.PlayDelayed(audioOffset);
+                Debug.Log($"Playing song: {_songFiles[songSelection.selectedSong]}");
+            }
+            else
+            {
+                Debug.LogError($"NoteSpawner: Audio clip not found: {_songFiles[songSelection.selectedSong]}");
+            }
         }
 
         SpawnNotes(loader.beatmap.buttonOne, 0);
