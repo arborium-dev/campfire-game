@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     
     public float[] laneY = { -2f, -1f, 0f, 1f, 2f }; // defining lanes
     public TextMeshProUGUI healthDisplay; // Assign in Inspector
+    public GameObject gameOver;
 
     private InputAction _moveUpAction;
     private InputAction _moveDownAction;
@@ -17,6 +18,8 @@ public class Player : MonoBehaviour
     private int _health = 15; // Starting health
     private List<Note> _overlappingNotes = new List<Note>(); // Track notes in player's lane
     private Animator _animator;
+    private bool dead = false;
+    
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -45,6 +48,8 @@ public class Player : MonoBehaviour
         
         // Initialize health display
         UpdateHealthDisplay();
+        gameOver.SetActive(false);
+        Time.timeScale = 1.0f;
     }
 
     // Update is called once per frame
@@ -54,12 +59,12 @@ public class Player : MonoBehaviour
         transform.position = new Vector2(-3, laneY[(int)_laneIndex]);
         
     
-        if (_moveUpAction.IsPressed() && _laneIndex < 4)
+        if (_moveUpAction.IsPressed() && _laneIndex < 4 && dead == false)
         {
             _laneIndex=3;
         }
 
-        if (_moveDownAction.IsPressed() && _laneIndex > 0)
+        if (_moveDownAction.IsPressed() && _laneIndex > 0 && dead == false)
         {
             _laneIndex=1;
         }
@@ -69,7 +74,7 @@ public class Player : MonoBehaviour
             _laneIndex=2;
         }
         
-        if (_attackAction.WasPressedThisFrame())
+        if (_attackAction.WasPressedThisFrame() && dead == false)
         {
             Debug.Log("Attack key pressed!");
             PlayAttackAnimation();
@@ -77,12 +82,19 @@ public class Player : MonoBehaviour
             DestroyLeftmostNote();
         }
         
-        if (_parryAction.WasPressedThisFrame()) 
+        if (_parryAction.WasPressedThisFrame() && dead == false) 
         {
             Debug.Log("Parry key pressed!");
             PlayParryAnimation();
             // Destroy only the leftmost note with parry logic
             DestroyLeftmostNoteWithParry();
+        }
+        //when health is under 1 you fail
+        if(_health <= 0)
+        {
+            Time.timeScale = 0f;
+            dead = true;
+            gameOver.SetActive(true);
         }
     }
     

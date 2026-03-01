@@ -57,4 +57,12 @@ public class ButtonLogic : MonoBehaviour
         songSelection.selectedSong = 6;
         SceneManager.LoadScene("Gameplay");
     }
+    public void Reset()
+    {
+        SceneManager.LoadScene("Gameplay");
+    }
+    public void Quit()
+    {
+        SceneManager.LoadScene("0");
+    }
 }
