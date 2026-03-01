@@ -134,6 +134,28 @@
                 },
                 {
                     "name": "",
+                    "id": "0d2251e2-a404-45a5-8589-afb743c0c481",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d803b7f2-d288-47f9-a08a-99193d148b4a",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "f619da05-30f2-4d8b-9540-c19ff777b8fc",
                     "path": "<Keyboard>/i",
                     "interactions": "",
@@ -146,7 +168,29 @@
                 {
                     "name": "",
                     "id": "d9d4cdd2-aff6-42bb-a25a-573c52f76a3b",
-                    "path": "<Gamepad>/buttonNorth",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Parry",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ca0fd17e-4fdd-4aec-9060-5b9bc9e04b9c",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Parry",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5e31f0c1-6bed-4444-a940-e1f5c7eda42d",
+                    "path": "<Gamepad>/rightShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
