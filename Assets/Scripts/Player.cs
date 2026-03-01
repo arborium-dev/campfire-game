@@ -74,11 +74,20 @@ public class Player : MonoBehaviour
             {
                 if (note != null)
                 {
-                    Destroy(note.gameObject);
+                    if (note.isParriable)
+                    {
+                        // Successfully parried! Gain health
+                        Destroy(note.gameObject);
+                        GainHealth(1);
+                    }
+                    else
+                    {
+                        // Can't parry this note! Take damage
+                        TakeDamage(1);
+                    }
                 }
             }
             _overlappingNotes.Clear();
-            GainHealth(1); // Gain health when parrying successfully
         }
     }
     

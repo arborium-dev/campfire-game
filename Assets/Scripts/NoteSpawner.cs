@@ -34,7 +34,11 @@ public class NoteSpawner : MonoBehaviour
             Vector3 pos = new Vector3(x, laneY[laneIndex], 0f);
 
             GameObject note = Instantiate(notePrefab, pos, Quaternion.identity);
-            note.GetComponent<Note>().spawnTime = t;
+            Note noteScript = note.GetComponent<Note>();
+            noteScript.spawnTime = t;
+            
+            // 1/10 chance (10%) for note to be parriable
+            noteScript.isParriable = (Random.value <= 0.1f);
         }
     }
 

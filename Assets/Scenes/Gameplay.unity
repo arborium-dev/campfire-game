@@ -688,7 +688,7 @@ MonoBehaviour:
   notePrefab: {fileID: 2640897253025761088, guid: cd3258077bb16c241be78c77d26c9c40, type: 3}
   noteDistance: 5
   audioSource: {fileID: 220655874}
-  audioOffset: 2.825
+  audioOffset: 1.825
   laneY:
   - -2
   - -1
