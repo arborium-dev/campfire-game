@@ -147,7 +147,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 30c396fbac6c7f541b13ac73b45821d0, type: 3}
+  m_Resource: {fileID: 8300000, guid: 6b3c50cde2df0254880c0d0a019cab57, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -865,6 +865,7 @@ MonoBehaviour:
     buttonThree: []
     buttonFour: []
     buttonFive: []
+  songSelection: {fileID: 11400000, guid: cb1b6a0cef6be5149bb0d8474017cc9e, type: 2}
 --- !u!4 &1116939299
 Transform:
   m_ObjectHideFlags: 0

@@ -3,11 +3,32 @@ using UnityEngine;
 public class BeatmapLoader : MonoBehaviour
 {
     public Beatmap beatmap;
-    private string[] beatmapFiles = new string[7] {"insomnia", "stillness", "drift", "adrenaline", "tachysensia", "untitled", "euphoria"};
-    public int currentBeatmapIndex = 0;
+    private string[] _beatmapFiles = { "insomnia", "stillness", "drift", "adrenaline", "tachysensia", "untitled", "euphoria" };
+    [SerializeField] private SongSelection songSelection;
+    
     void Awake()
     {
-        TextAsset json = Resources.Load<TextAsset>(beatmapFiles[currentBeatmapIndex]);
+        // Load SongSelection from Resources if not assigned in Inspector
+        if (songSelection == null)
+        {
+            songSelection = Resources.Load<SongSelection>("SongSelection");
+        }
+        
+        if (songSelection == null)
+        {
+            Debug.LogError("BeatmapLoader: SongSelection asset not found! Make sure it exists at Assets/Resources/SongSelection.asset");
+            return;
+        }
+        
+        Debug.Log("Loading beatmap: " + _beatmapFiles[songSelection.selectedSong]);
+        TextAsset json = Resources.Load<TextAsset>(_beatmapFiles[songSelection.selectedSong]);
+        
+        if (json == null)
+        {
+            Debug.LogError("BeatmapLoader: Beatmap file not found: " + _beatmapFiles[songSelection.selectedSong]);
+            return;
+        }
+        
         beatmap = JsonUtility.FromJson<Beatmap>(json.text);
     }
 }

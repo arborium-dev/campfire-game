@@ -172,6 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonLogic
   levelChoice: 0
+  songSelection: {fileID: 11400000, guid: cb1b6a0cef6be5149bb0d8474017cc9e, type: 2}
 --- !u!114 &31451388
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -535,6 +536,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonLogic
   levelChoice: 0
+  songSelection: {fileID: 11400000, guid: cb1b6a0cef6be5149bb0d8474017cc9e, type: 2}
 --- !u!114 &316260309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -819,6 +821,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonLogic
   levelChoice: 0
+  songSelection: {fileID: 11400000, guid: cb1b6a0cef6be5149bb0d8474017cc9e, type: 2}
 --- !u!114 &474575160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1240,6 +1243,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonLogic
   levelChoice: 0
+  songSelection: {fileID: 11400000, guid: cb1b6a0cef6be5149bb0d8474017cc9e, type: 2}
 --- !u!114 &667438063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1591,6 +1595,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonLogic
   levelChoice: 0
+  songSelection: {fileID: 11400000, guid: cb1b6a0cef6be5149bb0d8474017cc9e, type: 2}
 --- !u!114 &945830455
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2123,6 +2128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonLogic
   levelChoice: 0
+  songSelection: {fileID: 11400000, guid: cb1b6a0cef6be5149bb0d8474017cc9e, type: 2}
 --- !u!114 &1473178148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2700,6 +2706,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonLogic
   levelChoice: 0
+  songSelection: {fileID: 11400000, guid: cb1b6a0cef6be5149bb0d8474017cc9e, type: 2}
 --- !u!114 &1879686078
 MonoBehaviour:
   m_ObjectHideFlags: 0
