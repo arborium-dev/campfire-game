@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     private InputAction _attackAction;
     private InputAction _parryAction;
     private float _laneIndex = 2; // start in the middle lane
-    private int _health = 5; // Starting health
+    private int _health = 15; // Starting health
     private List<Note> _overlappingNotes = new List<Note>(); // Track notes in player's lane
     private Animator _animator;
     
@@ -106,7 +106,7 @@ public class Player : MonoBehaviour
     public void GainHealth(int amount)
     {
         _health += amount;
-        if (_health > 10) _health = 10; // Max health cap
+        if (_health > 25) _health = 25; // Max health cap
         UpdateHealthDisplay();
     }
     
@@ -226,7 +226,7 @@ public class Player : MonoBehaviour
             {
                 // Successfully parried! Gain health
                 Destroy(leftmostNote.gameObject);
-                GainHealth(1);
+                GainHealth(3); // Gain 3 health for parrying
             }
             else
             {
