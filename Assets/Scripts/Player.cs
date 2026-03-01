@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     private InputAction _attackAction;
     private InputAction _parryAction;
     private float _laneIndex = 2; // start in the middle lane
-    private int _health = 3; // Starting health
+    private int _health = 5; // Starting health
     private List<Note> _overlappingNotes = new List<Note>(); // Track notes in player's lane
     private Animator _animator;
     
@@ -91,7 +91,7 @@ public class Player : MonoBehaviour
     {
         if (healthDisplay != null)
         {
-            healthDisplay.text = "Health: " + _health;
+            healthDisplay.text = "Food left: " + _health;
         }
     }
     
@@ -106,7 +106,7 @@ public class Player : MonoBehaviour
     public void GainHealth(int amount)
     {
         _health += amount;
-        if (_health > 5) _health = 5; // Max health cap
+        if (_health > 10) _health = 10; // Max health cap
         UpdateHealthDisplay();
     }
     
