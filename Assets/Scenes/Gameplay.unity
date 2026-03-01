@@ -686,14 +686,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NoteSpawner
   loader: {fileID: 1116939298}
   notePrefab: {fileID: 2640897253025761088, guid: cd3258077bb16c241be78c77d26c9c40, type: 3}
-  noteDistance: 1
+  noteDistance: 5
+  audioSource: {fileID: 220655874}
+  audioOffset: 2.825
   laneY:
   - -2
   - -1
   - 0
   - 1
   - 2
-  spawnX: 7
+  spawnX: 0
 --- !u!4 &880951399
 Transform:
   m_ObjectHideFlags: 0
