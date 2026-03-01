@@ -9,6 +9,12 @@ public class Player : MonoBehaviour
     public float[] laneY = { -2f, -1f, 0f, 1f, 2f }; // defining lanes
     public TextMeshProUGUI healthDisplay; // Assign in Inspector
     public GameObject gameOver;
+    public TextMeshProUGUI gameOverText; // Assign the text component for game over message
+    
+    // Sound Effects
+    // private AudioSource _audioSource;
+    // private AudioClip _attackSfx;
+    // private AudioClip _parrySfx;
 
     private InputAction _moveUpAction;
     private InputAction _moveDownAction;
@@ -18,7 +24,7 @@ public class Player : MonoBehaviour
     private int _health = 15; // Starting health
     private List<Note> _overlappingNotes = new List<Note>(); // Track notes in player's lane
     private Animator _animator;
-    private bool dead = false;
+    private bool _dead;
     
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -30,6 +36,26 @@ public class Player : MonoBehaviour
         _parryAction = InputSystem.actions.FindAction("Parry");
         _animator = GetComponent<Animator>();
         
+        // Initialize AudioSource
+        // _audioSource = GetComponent<AudioSource>();
+        // if (_audioSource == null)
+        // {
+        //     _audioSource = gameObject.AddComponent<AudioSource>();
+        // }
+        //
+        // // Load sound effects from Resources
+        // _attackSfx = Resources.Load<AudioClip>("SFX/normalHit");
+        // _parrySfx = Resources.Load<AudioClip>("SFX/parryHit");
+        //
+        // if (_attackSfx == null)
+        // {
+        //     Debug.LogWarning("Attack sound effect not found at Resources/SFX/normalHit");
+        // }
+        // if (_parrySfx == null)
+        // {
+        //     Debug.LogWarning("Parry sound effect not found at Resources/SFX/parryHit");
+        // }
+        //
         // Debug: Check if animator is found
         if (_animator == null)
         {
@@ -59,12 +85,12 @@ public class Player : MonoBehaviour
         transform.position = new Vector2(-3, laneY[(int)_laneIndex]);
         
     
-        if (_moveUpAction.IsPressed() && _laneIndex < 4 && dead == false)
+        if (_moveUpAction.IsPressed() && _laneIndex < 4 && _dead == false)
         {
             _laneIndex=3;
         }
 
-        if (_moveDownAction.IsPressed() && _laneIndex > 0 && dead == false)
+        if (_moveDownAction.IsPressed() && _laneIndex > 0 && _dead == false)
         {
             _laneIndex=1;
         }
@@ -74,7 +100,7 @@ public class Player : MonoBehaviour
             _laneIndex=2;
         }
         
-        if (_attackAction.WasPressedThisFrame() && dead == false)
+        if (_attackAction.WasPressedThisFrame() && _dead == false)
         {
             Debug.Log("Attack key pressed!");
             PlayAttackAnimation();
@@ -82,7 +108,7 @@ public class Player : MonoBehaviour
             DestroyLeftmostNote();
         }
         
-        if (_parryAction.WasPressedThisFrame() && dead == false) 
+        if (_parryAction.WasPressedThisFrame() && _dead == false) 
         {
             Debug.Log("Parry key pressed!");
             PlayParryAnimation();
@@ -93,8 +119,28 @@ public class Player : MonoBehaviour
         if(_health <= 0)
         {
             Time.timeScale = 0f;
-            dead = true;
+            _dead = true;
             gameOver.SetActive(true);
+            // Show defeat message
+            if (gameOverText != null)
+            {
+                gameOverText.text = "Game Over!";
+            }
+        }
+        
+        // Check for victory condition - all notes destroyed
+        if (!_dead && GameObject.FindGameObjectsWithTag("Note").Length == 0)
+        {
+            
+            Time.timeScale = 0f;
+            _dead = true;
+            gameOver.SetActive(true);
+            // Show victory message
+            if (gameOverText != null)
+            {
+                gameOverText.text = "You Won!";
+            }
+            
         }
     }
     
@@ -213,6 +259,12 @@ public class Player : MonoBehaviour
         {
             Destroy(leftmostNote.gameObject);
             _overlappingNotes.Remove(leftmostNote);
+            
+            // // Play attack sound effect
+            // if (_audioSource != null && _attackSfx != null)
+            // {
+            //     _audioSource.PlayOneShot(_attackSfx);
+            // }
         }
     }
     
@@ -239,11 +291,23 @@ public class Player : MonoBehaviour
                 // Successfully parried! Gain health
                 Destroy(leftmostNote.gameObject);
                 GainHealth(3); // Gain 3 health for parrying
+                
+                // Play parry sound effect
+                // if (_audioSource != null && _parrySfx != null)
+                // {
+                //     _audioSource.PlayOneShot(_parrySfx);
+                // }
             }
             else
             {
                 // Can't parry this note! Take damage
                 TakeDamage(1);
+                
+                // Play attack sound for failed parry (optional)
+                // if (_audioSource != null && _attackSfx != null)
+                // {
+                //     _audioSource.PlayOneShot(_attackSfx);
+                // }
             }
             _overlappingNotes.Remove(leftmostNote);
         }

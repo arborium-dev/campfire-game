@@ -284,8 +284,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.0000038146973, y: 100}
-  m_SizeDelta: {x: 163.9938, y: 50}
+  m_AnchoredPosition: {x: 11, y: 101}
+  m_SizeDelta: {x: 432.7146, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &281692183
 MonoBehaviour:
@@ -341,7 +341,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -757,6 +757,7 @@ MonoBehaviour:
   - 2
   healthDisplay: {fileID: 1882383916}
   gameOver: {fileID: 281692181}
+  gameOverText: {fileID: 281692183}
 --- !u!61 &491539969
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1156,7 +1157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonLogic
   levelChoice: 0
-  songSelection: {fileID: 0}
+  songSelection: {fileID: 11400000, guid: cb1b6a0cef6be5149bb0d8474017cc9e, type: 2}
 --- !u!114 &930390753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1304,7 +1305,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonLogic
   levelChoice: 0
-  songSelection: {fileID: 0}
+  songSelection: {fileID: 11400000, guid: cb1b6a0cef6be5149bb0d8474017cc9e, type: 2}
 --- !u!114 &1018356263
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2310,7 +2311,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -256, y: 150}
+  m_AnchoredPosition: {x: -860, y: 515}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1882383916

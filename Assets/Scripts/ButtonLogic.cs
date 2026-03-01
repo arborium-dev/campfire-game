@@ -5,7 +5,7 @@ public class ButtonLogic : MonoBehaviour
 {
     public int levelChoice;
     [SerializeField] private SongSelection songSelection;
-    
+
     private void Start()
     {
         // Validate that songSelection is assigned
@@ -63,6 +63,7 @@ public class ButtonLogic : MonoBehaviour
     }
     public void Quit()
     {
-        SceneManager.LoadScene("0");
+        songSelection.selectedSong = 0;
+        SceneManager.LoadScene("Scenes/Menu");
     }
 }
