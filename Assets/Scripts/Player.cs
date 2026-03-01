@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     public TextMeshProUGUI healthDisplay; // Assign in Inspector
     public GameObject gameOver;
     public TextMeshProUGUI gameOverText; // Assign the text component for game over message
+    public TextMeshProUGUI streakDisplay;
     
     // Sound Effects
     // private AudioSource _audioSource;
@@ -29,6 +30,11 @@ public class Player : MonoBehaviour
     private List<Note> _overlappingNotes = new List<Note>(); // Track notes in player's lane
     private Animator _animator;
     private bool _dead;
+    private int _streak = 0; // Track consecutive successful hits
+    private float _shakeIntensity = 0f;
+    private float _shakeTimer = 0f;
+    private Vector3 _originalCameraPos;
+    private Camera _mainCamera;
     
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -40,6 +46,12 @@ public class Player : MonoBehaviour
         _parryAction = InputSystem.actions.FindAction("Parry");
         _hiddenAction = InputSystem.actions.FindAction("HiddenLevel");
         _animator = GetComponent<Animator>();
+        _mainCamera = Camera.main;
+        
+        if (_mainCamera != null)
+        {
+            _originalCameraPos = _mainCamera.transform.position;
+        }
         
         // Initialize AudioSource
         // _audioSource = GetComponent<AudioSource>();
@@ -86,6 +98,9 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Update screenshake
+        // UpdateScreenShake(); // no screenshake. no. dont.
+        
         // Update player position based on lane index
         transform.position = new Vector2(-3, laneY[(int)_laneIndex]);
 
@@ -163,12 +178,25 @@ public class Player : MonoBehaviour
         }
     }
     
+    // Update the streak display UI
+    private void UpdateStreakDisplay()
+    {
+        if (streakDisplay != null)
+        {
+            streakDisplay.text = _streak.ToString();
+        }
+    }
+
     // Method to take damage
     public void TakeDamage(int damage)
     {
         _health -= damage;
         if (_health < 0) _health = 0;
         UpdateHealthDisplay();
+        
+        // Reset streak on taking damage
+        _streak = 0;
+        UpdateStreakDisplay();
     }
     
     public void GainHealth(int amount)
@@ -197,9 +225,17 @@ public class Player : MonoBehaviour
         if (collision.CompareTag("Note"))
         {
             Note note = collision.GetComponent<Note>();
-            if (note != null)
+            if (note != null && _overlappingNotes.Contains(note))
             {
                 _overlappingNotes.Remove(note);
+                
+                // Only reset streak if the note still exists (wasn't destroyed by us)
+                if (note.gameObject != null)
+                {
+                    // Streak broken if note was missed
+                    _streak = 0;
+                    UpdateStreakDisplay();
+                }
             }
         }
     }
@@ -270,6 +306,11 @@ public class Player : MonoBehaviour
             Destroy(leftmostNote.gameObject);
             _overlappingNotes.Remove(leftmostNote);
             
+            // Increment streak and trigger screenshake
+            _streak++;
+            TriggerScreenShake(0.1f + (_streak * 0.02f)); // Intensity scales with streak
+            UpdateStreakDisplay();
+            
             // // Play attack sound effect
             // if (_audioSource != null && _attackSfx != null)
             // {
@@ -302,6 +343,11 @@ public class Player : MonoBehaviour
                 Destroy(leftmostNote.gameObject);
                 GainHealth(3); // Gain 3 health for parrying
                 
+                // Increment streak and trigger stronger screenshake
+                _streak++;
+                TriggerScreenShake(0.15f + (_streak * 0.02f)); // Parry has stronger shake
+                UpdateStreakDisplay();
+                
                 // Play parry sound effect
                 // if (_audioSource != null && _parrySfx != null)
                 // {
@@ -312,7 +358,8 @@ public class Player : MonoBehaviour
             {
                 // Can't parry this note! Take damage
                 TakeDamage(1);
-                
+                _streak = 0; // Reset streak on failed parry
+                UpdateStreakDisplay();
                 // Play attack sound for failed parry (optional)
                 // if (_audioSource != null && _attackSfx != null)
                 // {
@@ -320,6 +367,38 @@ public class Player : MonoBehaviour
                 // }
             }
             _overlappingNotes.Remove(leftmostNote);
+        }
+    }
+    
+    // Trigger a screenshake effect
+    private void TriggerScreenShake(float intensity)
+    {
+        _shakeIntensity = intensity;
+        _shakeTimer = 0.1f; // Duration of screenshake
+    }
+    
+    // Update screenshake position
+    private void UpdateScreenShake()
+    {
+        if (_mainCamera == null || _shakeIntensity <= 0f)
+            return;
+        
+        if (_shakeTimer > 0f)
+        {
+            _shakeTimer -= Time.deltaTime;
+            
+            // Random offset within shake intensity
+            float xOffset = Random.Range(-_shakeIntensity, _shakeIntensity);
+            float yOffset = Random.Range(-_shakeIntensity, _shakeIntensity);
+            
+            Vector3 newPos = _originalCameraPos + new Vector3(xOffset, yOffset, 0);
+            _mainCamera.transform.position = newPos;
+        }
+        else
+        {
+            // Return to original position
+            _shakeIntensity = 0f;
+            _mainCamera.transform.position = _originalCameraPos;
         }
     }
 }
