@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4287665579861379157}
   - component: {fileID: 7560758792678325214}
   - component: {fileID: 3179360247014537770}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NoteSprite
   m_TagString: Note
   m_Icon: {fileID: 0}
