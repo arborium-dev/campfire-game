@@ -14,8 +14,9 @@ public class Player : MonoBehaviour
     private InputAction _attackAction;
     private InputAction _parryAction;
     private float _laneIndex = 2; // start in the middle lane
-    private int _health = 3; // Starting health
+    private int _health = 5; // Starting health
     private List<Note> _overlappingNotes = new List<Note>(); // Track notes in player's lane
+    private Animator _animator;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -24,6 +25,17 @@ public class Player : MonoBehaviour
         _moveDownAction = InputSystem.actions.FindAction("MoveDown");
         _attackAction = InputSystem.actions.FindAction("Attack");
         _parryAction = InputSystem.actions.FindAction("Parry");
+        _animator = GetComponent<Animator>();
+        
+        // Debug: Check if animator is found
+        if (_animator == null)
+        {
+            Debug.LogError("Animator not found on Player object!");
+        }
+        else
+        {
+            Debug.Log("Animator found successfully");
+        }
         
         // Enable input actions
         _moveUpAction.Enable();
@@ -42,52 +54,35 @@ public class Player : MonoBehaviour
         transform.position = new Vector2(-3, laneY[(int)_laneIndex]);
         
     
-        if (_moveUpAction.WasPressedThisFrame() && _laneIndex < 4)
+        if (_moveUpAction.IsPressed() && _laneIndex < 4)
         {
-            _laneIndex++;
+            _laneIndex=3;
         }
 
-        if (_moveDownAction.WasPressedThisFrame() && _laneIndex > 0)
+        if (_moveDownAction.IsPressed() && _laneIndex > 0)
         {
-            _laneIndex--;
+            _laneIndex=1;
+        }
+        
+        if (!_moveUpAction.IsPressed() && ! _moveDownAction.IsPressed())
+        {
+            _laneIndex=2;
         }
         
         if (_attackAction.WasPressedThisFrame())
         {
-            // Create a copy of the list to avoid modification during iteration
-            List<Note> notesToDestroy = new List<Note>(_overlappingNotes);
-            foreach (Note note in notesToDestroy)
-            {
-                if (note != null)
-                {
-                    Destroy(note.gameObject);
-                }
-            }
-            _overlappingNotes.Clear();
+            Debug.Log("Attack key pressed!");
+            PlayAttackAnimation();
+            // Destroy only the leftmost note
+            DestroyLeftmostNote();
         }
         
         if (_parryAction.WasPressedThisFrame()) 
         {
-            // Create a copy of the list to avoid modification during iteration
-            List<Note> notesToDestroy = new List<Note>(_overlappingNotes);
-            foreach (Note note in notesToDestroy)
-            {
-                if (note != null)
-                {
-                    if (note.isParriable)
-                    {
-                        // Successfully parried! Gain health
-                        Destroy(note.gameObject);
-                        GainHealth(1);
-                    }
-                    else
-                    {
-                        // Can't parry this note! Take damage
-                        TakeDamage(1);
-                    }
-                }
-            }
-            _overlappingNotes.Clear();
+            Debug.Log("Parry key pressed!");
+            PlayParryAnimation();
+            // Destroy only the leftmost note with parry logic
+            DestroyLeftmostNoteWithParry();
         }
     }
     
@@ -96,7 +91,7 @@ public class Player : MonoBehaviour
     {
         if (healthDisplay != null)
         {
-            healthDisplay.text = "Health: " + _health;
+            healthDisplay.text = "Food left: " + _health;
         }
     }
     
@@ -111,7 +106,7 @@ public class Player : MonoBehaviour
     public void GainHealth(int amount)
     {
         _health += amount;
-        if (_health > 5) _health = 5; // Max health cap
+        if (_health > 10) _health = 10; // Max health cap
         UpdateHealthDisplay();
     }
     
@@ -138,6 +133,107 @@ public class Player : MonoBehaviour
             {
                 _overlappingNotes.Remove(note);
             }
+        }
+    }
+    
+    // Animation Functions
+    
+    private void PlayAttackAnimation()
+    {
+        if (_animator != null)
+        {
+            _animator.Play("Attack");
+            StartCoroutine(ReturnToIdleAfterAnimation("Attack"));
+        }
+    }
+    
+    private void PlayParryAnimation()
+    {
+        if (_animator != null)
+        {
+            _animator.Play("Parry");
+            StartCoroutine(ReturnToIdleAfterAnimation("Parry"));
+        }
+    }
+    
+    private System.Collections.IEnumerator ReturnToIdleAfterAnimation(string animationName)
+    {
+        // Get animation length
+        AnimationClip clip = GetAnimationClip(animationName);
+        if (clip != null)
+        {
+            yield return new WaitForSeconds(clip.length);
+            _animator.Play("Idle");
+        }
+    }
+    
+    private AnimationClip GetAnimationClip(string clipName)
+    {
+        if (_animator == null || _animator.runtimeAnimatorController == null)
+            return null;
+        
+        AnimationClip[] clips = _animator.runtimeAnimatorController.animationClips;
+        foreach (AnimationClip clip in clips)
+        {
+            if (clip.name == clipName)
+                return clip;
+        }
+        return null;
+    }
+    
+    // Destroy only the leftmost note
+    private void DestroyLeftmostNote()
+    {
+        if (_overlappingNotes.Count == 0)
+            return;
+        
+        // Find the note with the smallest X position (leftmost)
+        Note leftmostNote = _overlappingNotes[0];
+        foreach (Note note in _overlappingNotes)
+        {
+            if (note != null && note.transform.position.x < leftmostNote.transform.position.x)
+            {
+                leftmostNote = note;
+            }
+        }
+        
+        if (leftmostNote != null)
+        {
+            Destroy(leftmostNote.gameObject);
+            _overlappingNotes.Remove(leftmostNote);
+        }
+    }
+    
+    // Destroy only the leftmost note with parry logic
+    private void DestroyLeftmostNoteWithParry()
+    {
+        if (_overlappingNotes.Count == 0)
+            return;
+        
+        // Find the note with the smallest X position (leftmost)
+        Note leftmostNote = _overlappingNotes[0];
+        foreach (Note note in _overlappingNotes)
+        {
+            if (note != null && note.transform.position.x < leftmostNote.transform.position.x)
+            {
+                leftmostNote = note;
+            }
+        }
+        
+        if (leftmostNote != null)
+        {
+            if (leftmostNote.isParriable)
+            {
+                // Successfully parried! Gain health
+                Destroy(leftmostNote.gameObject);
+                GainHealth(1);
+            }
+            else
+            {
+                // Can't parry this note! Take damage
+                TakeDamage(1);
+            }
+            _overlappingNotes.Remove(leftmostNote);
         }
     }
 }

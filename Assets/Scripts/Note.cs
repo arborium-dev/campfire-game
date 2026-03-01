@@ -8,6 +8,7 @@ public class Note : MonoBehaviour
     public bool isParriable = false; // Whether this note can be parried
     private Player _player;
     private SpriteRenderer _spriteRenderer;
+    private Animator _animator;
 
     void Start()
     {
@@ -16,10 +17,16 @@ public class Note : MonoBehaviour
         
         // Get sprite renderer and set color if parriable
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _animator = GetComponent<Animator>();
         if (_spriteRenderer != null && isParriable)
         {
             // Make parriable notes yellow/gold so player can distinguish them
-            _spriteRenderer.color = Color.yellow;
+            _animator.Play("parry_worm");
+            _spriteRenderer.color = Color.red;
+        }
+        else
+        {
+            _animator.Play("normal_worm");
         }
     }
 
