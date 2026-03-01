@@ -8,7 +8,7 @@ public class NoteSpawner : MonoBehaviour
     public AudioSource audioSource; // Assign in Inspector
     public float audioOffset = 0f; // Adjust this to sync notes with music (in seconds)
         
-    public float[] laneY = new float[5] { -2f, -1f, 0f, 1f, 2f };
+    public float[] laneY = new float[5] { -2.5f, -1.5f, -0.5f, 0.5f, 1.5f };
     public float spawnX = 7f;
 
     void Start()
