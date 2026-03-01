@@ -5,7 +5,7 @@ public class BeatmapLoader : MonoBehaviour
     public Beatmap beatmap;
 
     private string[] _beatmapFiles =
-        { "insomnia", "stillness", "drift", "adrenaline", "tachysensia", "untitled", "euphoria", "unbeatable" };
+        { "insomnia", "stillness", "drift", "adrenaline", "tachysensia", "nostalgia", "euphoria", "unbeatable" };
 
     [SerializeField] private SongSelection songSelection;
 
