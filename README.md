@@ -25,7 +25,7 @@ J for a normal hit (yellow worms)
 
 I to eat (red worms)
 
-Story:
+## Story:
 
 PICTURE THIS:
 
@@ -37,14 +37,6 @@ Some random worms are beefing with your last performance.
 
 (B)EAT EM UP
 
-
-Credits:
-
-arborium-dev for gameplay programming, art
-
-Waffles1133 for gui programming, art
-
-LELAND "Golgotha42" BAKER for music, concept art
 
 controller supported
 ## Gameplay
