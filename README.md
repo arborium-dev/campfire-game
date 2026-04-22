@@ -12,7 +12,7 @@ A tiny rhythm‑brawler where you're homeless, hungry, and beefing with worms.
 - **Controller support**  
 - **A story that absolutely should not exist**
 
-## 🛠 Tech Stack
+## Tech Stack
 - Unity **6000.3.8f1**  
 - **input-recorder** by arborium-dev  
 - Audacity  
