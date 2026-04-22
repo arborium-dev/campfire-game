@@ -1,53 +1,65 @@
-# Beat 'Em Up 
+# **(B)Eat 'Em Up**
+A tiny rhythm‑brawler where you're homeless, hungry, and beefing with worms.
+
 ## Overview
-a game where you're homeless and eat worms.
-## Features  
-7 beatmaps
-2 notetypes
-parrying
-attacking
-## Tech Stack
-unity 6000.3.8f1
-input-recorder by arborium-dev (also made in unity)
-audacity
-myinstants
-musescore
-aseprite
-libresprite
-rider
-VS
-## Installation 
-download .exe from releases or play on itch
+**Beat 'Em Up** is a lane‑based rhythm game where you punch yellow worms, eat red worms, and try not to starve. You only have a guitar, questionable life choices, and a burning desire to win an argument with sentient annelids.
+
+## Features
+- **7 beatmaps**  
+- **2 note types** (hit vs. eat)  
+- **Parrying + attacking**  
+- **Lane‑switching movement**  
+- **Controller support**  
+- **A story that absolutely should not exist**
+
+## 🛠 Tech Stack
+- Unity **6000.3.8f1**  
+- **input-recorder** by arborium-dev  
+- Audacity  
+- MyInstants  
+- MuseScore  
+- Aseprite / LibreSprite  
+- JetBrains Rider  
+- Visual Studio  
+
+## Installation
+- Download the `.exe` from **Releases**, **or**  
+- Play instantly on itch.io:  
+  **[https://bouncyblock.itch.io/beat-em-up](https://bouncyblock.itch.io/beat-em-up)**
+
 ## Controls
-Hold W or S to move into the top or bottom lanes respectively.
+- **W / S** — Move to top or bottom lane  
+- **J** — Normal attack (yellow worms)  
+- **I** — Eat (red worms, restores health)
 
-J for a normal hit (yellow worms)
+## Mechanics
+A rhythm game twist:  
+- **Yellow notes = enemies → hit them**  
+- **Red notes = food → eat them to stay alive**  
+Miss too many and you starve. Eat too many wrong things and… well, you’ll find out.
 
-I to eat (red worms)
+## Story
+**PICTURE THIS:**
 
-## Story:
+You are homeless.  
+You only have a guitar.  
+Some random worms are beefing with your last performance.  
 
-PICTURE THIS:
+**(B)EAT EM UP.**
 
-You are homeless.
-
-You only have a guitar.
-
-Some random worms are beefing with your last performance.
-
-(B)EAT EM UP
-
-
-controller supported
 ## Gameplay
-attack the yellow worms, eat the red ones to refil your food
-## Screenshots
-no
+Attack yellow worms to keep the beat.  
+Eat red worms to refill your food bar.  
+Survive the song.  
+Win the beef.
+
 ## Demo Link
 [https://bouncyblock.itch.io/beat-em-up](https://bouncyblock.itch.io/beat-em-up)
-## Credits  
-arborium-dev and waffles1133 for programming
-arborium-dev for beatmaps
-lelend baker for music
+
+## Credits
+- **arborium-dev** — Gameplay programming, art, beatmaps  
+- **Waffles1133** — GUI programming, art  
+- **LELAND “Golgotha42” BAKER** — Music, concept art  
+
 ## License
-mit license, see LiNCENSE.md
+MIT License
